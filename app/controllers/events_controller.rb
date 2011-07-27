@@ -1,5 +1,6 @@
 class EventsController < InheritedResources::Base
   respond_to :html, :json
+  before_filter :check_user
 
   # TODO: возможность добавить повторяющееся событие каждую неделю
   # TODO: возможность редактировать/удалить событие
@@ -16,7 +17,12 @@ class EventsController < InheritedResources::Base
 
   private
 
+  def check_user
+    redirect_to root_path unless signed_in?
+  end
+
   def collection
     @events ||= Event.find_with_repeatings(current_user, Time.at(params[:start].to_i), Time.at(params[:end].to_i)) 
   end
+
 end

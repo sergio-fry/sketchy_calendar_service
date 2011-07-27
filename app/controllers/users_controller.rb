@@ -2,7 +2,7 @@ class UsersController < InheritedResources::Base
   def create
     if data = Loginza.user_data(params[:token])
       user = User.find_or_create(data)
-      cookies[:user_id] = user.id
+      session[:user_id] = user.id
 
       redirect_to events_path
     else
@@ -11,7 +11,7 @@ class UsersController < InheritedResources::Base
   end
 
   def logout
-    cookies[:user_id] = nil
+    session[:user_id] = nil
     redirect_to root_path
   end
 end

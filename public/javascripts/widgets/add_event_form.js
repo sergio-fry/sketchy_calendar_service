@@ -4,7 +4,7 @@ $(function() {
 
   dialog.dialog({
 			autoOpen: false,
-			height: 300,
+			height: 420,
 			h: 350,
 			modal: true,
 			buttons: {
