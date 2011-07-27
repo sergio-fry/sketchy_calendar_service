@@ -1,5 +1,6 @@
 class EventsController < InheritedResources::Base
-  # TODO: обновление календаря
+  respond_to :html, :json
+
   # TODO: не закрывать форму, если не удалось создать событие
   # TODO: обновить календарь после добавления события
   # TODO: всплывающий календарик для ввода даты
@@ -14,6 +15,6 @@ class EventsController < InheritedResources::Base
   private
 
   def collection
-    @events ||= current_user.events
+    @events ||= current_user.events.from_to(Time.at(params[:start].to_i), Time.at(params[:end].to_i)) 
   end
 end
