@@ -7,10 +7,15 @@ class Event < ActiveRecord::Base
 
   scope :from_to, lambda {|from, to| where("starts_on >= ? AND starts_on <= ?", from, to)}
 
-  def occurs_on?(date)
-    (starts_on.day == date.day && ((starts_on - date).abs <= 1.day) && week_days.blank?) || ((starts_on <= date) && week_days.include?(date.wday))
+  def month_days
+    days = read_attribute(:month_days).split(",").map(&:to_i).reject{|day| !(1..31).to_a.include?(day)} rescue []
   end
 
+  def occurs_on?(date)
+    (starts_on.day == date.day && ((starts_on - date).abs <= 1.day) && week_days.blank? && month_days.blank?) || 
+      ((starts_on <= date) && week_days.include?(date.wday)) ||
+      ((starts_on <= date) && month_days.include?(date.mday))
+  end
 
   def week_days
     days = read_attribute(:week_days).split(",").map(&:to_i).reject{|day| !(1..6).to_a.include?(day)} rescue []

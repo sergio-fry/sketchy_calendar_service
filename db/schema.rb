@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110727181632) do
+ActiveRecord::Schema.define(:version => 20110727193529) do
 
   create_table "events", :force => true do |t|
     t.datetime "starts_on"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20110727181632) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "week_days"
+    t.string   "month_days"
   end
 
   create_table "users", :force => true do |t|
