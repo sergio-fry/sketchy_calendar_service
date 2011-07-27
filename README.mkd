@@ -1,0 +1,19 @@
+# Sketchy Calendar Service
+
+## Vendors
+
+Gems: 
+ * loginza
+ * inherited_resources
+ * russian (quick fix of a problem with tmie zones)
+
+Javascript:
+ * fullcalendar
+ * jQuery
+ * jQueryUI
+ * jquery.blockUI
+ * jquery.rest
+ * underscore
+ * globalize
+
+
