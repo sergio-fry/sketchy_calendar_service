@@ -22,7 +22,7 @@ $(function() {
             $.post("/events", form.serialize(), function() {
               $.unblockUI();
               dialog.dialog("close");
-              $('#event_calendar').fullCalendar('render');
+              $('#event_calendar').fullCalendar('refetchEvents');
             });
           }
 
