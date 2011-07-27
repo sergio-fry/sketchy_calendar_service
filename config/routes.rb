@@ -1,7 +1,10 @@
 SketchyCalendarService::Application.routes.draw do
+  resources :events
+
   resources :users
 
   root :to => "welcome#index"
+  get "logout", :to => "users#logout"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

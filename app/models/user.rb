@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :events
+
   validates :name, :presence => true
   validates :provider, :presence => true
   validates :uid, :uniqueness => {:scope => :provider}, :presence => true
