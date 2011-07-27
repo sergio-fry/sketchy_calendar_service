@@ -17,6 +17,9 @@ $(function(){
     },
     eventClick: function(calEvent, jsEvent, view) {
       $("#update_event_dialog").trigger("show", calEvent.id);
+    },
+    dayClick: function(date, allDay, jsEvent, view) {
+      $("#add_event_dialog").trigger("show", date);
     }
   });
 });

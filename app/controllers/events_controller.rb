@@ -2,12 +2,8 @@ class EventsController < InheritedResources::Base
   respond_to :html, :json
   before_filter :check_user
 
-  # TODO: возможность добавить повторяющееся событие каждую неделю
-  # TODO: возможность редактировать/удалить событие
   # TODO: не закрывать форму, если не удалось создать событие
-  # TODO: обновить календарь после добавления события
   # TODO: всплывающий календарик для ввода даты
-  # TODO: добавление события кликом на день
   
   def create
     @event = Event.new params[:event]

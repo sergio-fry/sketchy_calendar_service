@@ -34,11 +34,22 @@ $(function() {
   });
 
 
-  $("#add_event_button").click(function(e, event_id) {
+  dialog.bind("show", function(e, start) {
     form[0].reset();
+
+    if(start !== undefined) {
+      form.find("#event_starts_on").val(Globalize.format( new Date(start), "yyyy-MM-dd" ));
+    } else {
+      form.find("#event_starts_on").val(Globalize.format( new Date(), "yyyy-MM-dd" ));
+    }
+
     form.data("event_id", null);
     dialog.dialog("open");
 
     return false;
+  });
+
+  $("#add_event_button").bind("click", function(){
+    dialog.trigger("show");
   });
 });
