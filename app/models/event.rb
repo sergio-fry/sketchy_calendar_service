@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
   belongs_to :user
 
+  attr_accessor :base_id
+
   validates :user_id, :presence => true
   validates :title, :presence => true
   validates :starts_on, :presence => true
@@ -8,7 +10,7 @@ class Event < ActiveRecord::Base
   scope :from_to, lambda {|from, to| where("starts_on >= ? AND starts_on <= ?", from, to)}
 
   def month_days
-    days = read_attribute(:month_days).split(",").map(&:to_i).reject{|day| !(1..31).to_a.include?(day)} rescue []
+    days = read_attribute(:month_days).split(",").map(&:to_i).reject{|day| !(1..31).to_a.include?(day)}.uniq.compact rescue []
   end
 
   def occurs_on?(date)
@@ -17,8 +19,12 @@ class Event < ActiveRecord::Base
       ((starts_on <= date) && month_days.include?(date.mday))
   end
 
+  def to_hash
+    {:starts_on => starts_on, :title => title, :base_id => base_id}
+  end
+
   def week_days
-    days = read_attribute(:week_days).split(",").map(&:to_i).reject{|day| !(1..6).to_a.include?(day)} rescue []
+    days = read_attribute(:week_days).split(",").map(&:to_i).reject{|day| !(1..6).to_a.include?(day)}.uniq.compact rescue []
   end
 
   def self.find_with_repeatings(user, from, to)
@@ -32,6 +38,7 @@ class Event < ActiveRecord::Base
         if event.occurs_on?(current_date)
           cloned_event = event.clone
           cloned_event.starts_on = current_date
+          cloned_event.base_id = event.id
           events_with_repeatings << cloned_event
         end
       end

@@ -5,7 +5,7 @@ $(function(){
         $.getJSON("/events.json", {start: (new Date(start)).getTime()/1000, end: (new Date(end)).getTime()/1000}, function(data) {
 
           var events = _.map(data, function(el) { 
-            return {"title": el["event"].title, "start": (new Date(el["event"].starts_on)).getTime()/1000};
+            return {"id": el.base_id, "title": el.title, "start": (new Date(el.starts_on)).getTime()/1000};
           });
           callback(events);
         });
@@ -14,6 +14,9 @@ $(function(){
     firstDay: 1,
     header: {
       right: 'month,basicWeek,basicDay prev,next'
+    },
+    eventClick: function(calEvent, jsEvent, view) {
+      $("#add_event_button").trigger("click", calEvent.id);
     }
   });
 });

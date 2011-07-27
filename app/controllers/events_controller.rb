@@ -15,6 +15,13 @@ class EventsController < InheritedResources::Base
     create!
   end
 
+  def index
+    index! do |format|
+      format.json { render :json => @events.map(&:to_hash) }
+    end
+
+  end
+
   private
 
   def check_user
