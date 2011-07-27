@@ -1,7 +1,7 @@
 <h1>Listing events</h1>
 
 <%= link_to "Add event", "#", :id => "add_event_button" %>
-<%= content_tag :div, :id => "add_event_dialog" do %>
+<%= content_tag :div, :id => "event_form", :style => "display: none" do %>
   <%= form_for Event.new do |f|%>
     <p><%= f.label :title %><br />
     <%= f.text_field :title, :class => :required %></p>
@@ -17,5 +17,8 @@
     
   <% end %>
 <% end %>
+
+<%= content_tag :div, "", :id => "add_event_dialog" %>
+<%= content_tag :div, "", :id => "update_event_dialog" %>
 
 <%= content_tag :div, "", :id => :event_calendar %>

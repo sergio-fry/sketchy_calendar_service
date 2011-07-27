@@ -1,5 +1,5 @@
 $(function() {
-  var dialog = $("#add_event_dialog").append($("#event_form form").clone());
+  var dialog = $("#update_event_dialog").append($("#event_form form").clone());
   var form = dialog.find("form");
 
   dialog.dialog({
@@ -19,7 +19,7 @@ $(function() {
 
         if(valid) {
           $.blockUI();
-          $.post("/events", form.serialize(), function() {
+          $.put("/events/"+form.data("event_id"), form.serialize(), function() {
             $.unblockUI();
             dialog.dialog("close");
             $('#event_calendar').fullCalendar('refetchEvents');
@@ -34,10 +34,15 @@ $(function() {
   });
 
 
-  $("#add_event_button").click(function(e, event_id) {
-    form[0].reset();
-    form.data("event_id", null);
-    dialog.dialog("open");
+  dialog.bind("show", function(e, event_id) {
+    $.get("/events/"+event_id+".json", function(data) {
+      form.find("#event_title").val(data["event"].title);
+      form.find("#event_starts_on").val(data["event"].starts_on.substr(0, 10));
+      form.find("#event_week_days").val(data["event"].week_days);
+      form.find("#event_month_days").val(data["event"].month_days);
+      form.data("event_id", event_id);
+      dialog.dialog("open");
+    });
 
     return false;
   });

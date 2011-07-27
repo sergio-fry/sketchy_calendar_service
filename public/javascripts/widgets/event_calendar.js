@@ -16,7 +16,7 @@ $(function(){
       right: 'month,basicWeek,basicDay prev,next'
     },
     eventClick: function(calEvent, jsEvent, view) {
-      $("#add_event_button").trigger("click", calEvent.id);
+      $("#update_event_dialog").trigger("show", calEvent.id);
     }
   });
 });
