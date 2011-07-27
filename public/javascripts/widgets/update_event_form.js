@@ -27,6 +27,17 @@ $(function() {
         }
 
       },
+      Destroy: function() {
+        if(confirm("Are you sure?")) {
+          $.blockUI();
+          $.del("/events/"+form.data("event_id")+".json", form.serialize(), function() {
+            $.unblockUI();
+            dialog.dialog("close");
+            $('#event_calendar').fullCalendar('refetchEvents');
+          });
+        }
+
+      },
       Cancel: function() {
         $(this).dialog("close");
       }
