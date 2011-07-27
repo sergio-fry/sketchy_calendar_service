@@ -8,6 +8,7 @@ gem 'rails', '3.0.7'
 gem 'sqlite3'
 gem 'loginza'
 gem 'inherited_resources'
+gem 'russian'
 
 # Use unicorn as the web server
 # gem 'unicorn'

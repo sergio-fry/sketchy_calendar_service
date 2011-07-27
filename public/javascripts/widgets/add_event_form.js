@@ -10,7 +10,7 @@ $(function() {
 			buttons: {
         "Create an event": function() {
           var valid = true;
-          form.find(":input").each(function() {
+          form.find(".required").each(function() {
             if($(this).val() === "") {
               $(this).focus();
               valid = false;
@@ -22,6 +22,7 @@ $(function() {
             $.post("/events", form.serialize(), function() {
               $.unblockUI();
               dialog.dialog("close");
+              $('#event_calendar').fullCalendar('render');
             });
           }
 
